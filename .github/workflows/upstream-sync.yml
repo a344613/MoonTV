@@ -1,0 +1,19 @@
+name: Upstream Sync
+
+on:
+  schedule:
+    - cron: '0 2 * * *'   # 每天凌晨 2 点同步一次（可调）
+  workflow_dispatch:       # 支持手动触发
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Sync with upstream
+        uses: aormsby/Fork-Sync-With-Upstream-action@v3.4.1
+        with:
+          github_token: ${{ secrets.GH_PAT }}           # 使用你的 PAT Token
+          upstream_repository: LunaTechLab/MoonTV       # ✅ 正确的上游仓库路径
+          upstream_branch: main                         # 上游分支
+          target_branch: main                           # 你自己的主分支（如非 main 可改）
